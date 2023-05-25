@@ -49,6 +49,7 @@
                 android:inputType="textMultiLine"
                 android:gravity="left"
                 android:textSize="15dp"
+                android:text="Poulets de chairs"
                 android:padding="8dp"
                 android:background="@drawable/txt_background"
                 android:id="@+id/txt_edit_post"/>

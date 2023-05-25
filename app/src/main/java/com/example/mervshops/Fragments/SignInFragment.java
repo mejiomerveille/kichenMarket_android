@@ -34,6 +34,13 @@ import com.example.namespace.databinding.LayoutsigninBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,9 +79,67 @@ public class SignInFragment extends Fragment {
             });
             btnSignIn.setOnClickListener(v->{
                 if(validate()){
-                    MyAsyncTask runner = new MyAsyncTask();
-                    String sleepTime = txtEmail.getText().toString();
-                    runner.execute(sleepTime);
+                    URL url = null;
+                    try {
+                        url = new URL("http:// 192.168.124.79:8000/");
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    HttpURLConnection conn = null;
+                    try {
+                        conn = (HttpURLConnection) url.openConnection();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        conn.setRequestMethod("POST");
+                    } catch (ProtocolException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String jwtToken = null;
+                    conn.setRequestProperty("Authorization", "Bearer " + jwtToken);
+                    try {
+                        conn.connect();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    int responseCode = 0;
+                    try {
+                        responseCode = conn.getResponseCode();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader in = null;
+                        try {
+                            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        String inputLine;
+                        StringBuffer response = new StringBuffer();
+
+                        while (true) {
+                            try {
+                                if (!((inputLine = in.readLine()) != null)) break;
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            response.append(inputLine);
+                        }
+                        try {
+                            in.close();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        // Process the response
+                        String responseData = response.toString();
+                    }
+//                    MyAsyncTask runner = new MyAsyncTask();
+//                    String sleepTime = txtEmail.getText().toString();
+//                    runner.execute(sleepTime);
                 }
             });
             txtEmail.addTextChangedListener(new TextWatcher() {

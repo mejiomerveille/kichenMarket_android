@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:id="@+id/img_add_post"
+                android:src="@drawable/pol"
                 android:layout_marginBottom="16dp"/>
 
             <TextView
@@ -64,6 +65,7 @@
                 android:inputType="textMultiLine"
                 android:gravity="left"
                 android:textSize="15dp"
+                android:text="Pondeuses deja mangeables a Eban"
                 android:padding="8dp"
                 android:background="@drawable/txt_background"
                 android:id="@+id/txtseachpost"/>

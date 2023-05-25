@@ -6,10 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:src="@drawable/sans_titre"
+        android:textSize="32dp" />
     <TextView
+        android:layout_below="@id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Merv Shops"
+        android:text="Chiken Market"
         android:textSize="32dp"
         android:gravity="center_horizontal"
         android:layout_centerInParent="true"
